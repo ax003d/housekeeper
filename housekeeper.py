@@ -12,6 +12,7 @@ import getpass
 from optparse import OptionParser
 
 import sleekxmpp
+import works
 
 # Python versions before 3.0 do not use UTF-8 encoding
 # by default. To ensure that Unicode is handled properly
@@ -75,7 +76,10 @@ class HouseKeeper(sleekxmpp.ClientXMPP):
                    how it may be used.
         """
         if msg['type'] in ('chat', 'normal'):
-            msg.reply("Thanks for sending\n%(body)s" % msg).send()
+            if msg['body'] == 'disk usage':
+                msg.reply(works.disk_usage()).send()
+            else:
+                msg.reply("Thanks for sending\n%(body)s" % msg).send()
 
 
 if __name__ == '__main__':
